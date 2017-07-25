@@ -15,15 +15,16 @@ function ListaTareas()
     this.tareas = [];
     this.agregar = function(tarea)
     {
-        var imputTarea = document.getElementById("tarea");
+        var inputTarea = document.getElementById("tarea");
         if(tarea == undefined)
         {
-            tarea = new Tarea(imputTarea.value);    
+            tarea = inputTarea.value.charAt(0).toUpperCase() + inputTarea.value.slice(1);
+            tarea = new Tarea(tarea);    
         }
         this.tareas.push(tarea);
         this.tareas[this.tareas.length - 1].mostrar();
-        imputTarea.value = "";
-        imputTarea.focus();
+        inputTarea.value = "";
+        inputTarea.focus();
     }
     this.editar = function()
     {
