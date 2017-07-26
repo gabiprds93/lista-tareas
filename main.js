@@ -4,62 +4,104 @@ function Tarea(title)
     this.completed = false;
     this.mostrar = function()
     {
-        var node = document.createElement("li");
+        var nodoLi = document.createElement("li");
         var textnode = document.createTextNode(this.title);
-        node.appendChild(textnode);
-        var ul = document.getElementById("listaTareas");
-        ul.appendChild(node);
-        node.onclick = function()
-        {
-            var node1 = document.createElement("li");
-            var a = document.createElement("input");
-            a.type = "text";
-            a.value = textnode.nodeValue;
-            //var textnode1 = document.createTextNode("fdsfd");
-            node1.appendChild(a);
-            ul.appendChild(node1);
-            ul.replaceChild(node1, node);
-            node1.firstChild.focus();
-            //node.style.backgroundColor = "#ffd1a3";
-        };
+        nodoLi.appendChild(textnode);
+        ul.appendChild(nodoLi);
     }
 }
 
 function ListaTareas()
 {
+    this.tareasPredefinidas = [
+        {
+            "userId": 1,
+            "id": 1,
+            "title": "delectus aut autem",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 2,
+            "title": "quis ut nam facilis et officia qui",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 3,
+            "title": "fugiat veniam minus",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 4,
+            "title": "et porro tempora",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 5,
+            "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 6,
+            "title": "qui ullam ratione quibusdam voluptatem quia omnis",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 7,
+            "title": "illo expedita consequatur quia in",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 8,
+            "title": "quo adipisci enim quam ut ab",
+            "completed": true
+        },
+        {
+            "userId": 1,
+            "id": 9,
+            "title": "molestiae perspiciatis ipsa",
+            "completed": false
+        },
+        {
+            "userId": 1,
+            "id": 10,
+            "title": "illo est ratione doloremque quia maiores aut",
+            "completed": true
+        }
+    ];
     this.tareas = [];
-
-    this.li = document.getElementsByTagName("li");
+    this.inputTarea = document.getElementById("tarea");
     this.seleccion = undefined;
     this.agregar = function(tarea)
     {
-        var inputTarea = document.getElementById("tarea");
         if(tarea == undefined)
         {
-            tarea = inputTarea.value.charAt(0).toUpperCase() + inputTarea.value.slice(1);
-            tarea = new Tarea(tarea);    
+            tarea = this.inputTarea.value;   
         }
+        tarea = tarea.charAt(0).toUpperCase() + tarea.slice(1);
+        tarea = new Tarea(tarea); 
         this.tareas.push(tarea);
         this.tareas[this.tareas.length - 1].mostrar();
-        inputTarea.value = "";
-        inputTarea.focus();
-        console.log(this.li);
+        this.inputTarea.value = "";
+        this.inputTarea.focus();
     }
-
-    this.editar = function()
+    
+    this.agregarTodo = function()
     {
-                
+        for(var i of this.tareasPredefinidas)
+        {
+            this.agregar(i.title);
+        }
+        
     }
 }
 
 var listaTareas = new ListaTareas();
-listaTareas.agregar(new Tarea("Delectus aut autem"));
-listaTareas.agregar(new Tarea("Quis ut nam facilis et officia qui"));
-listaTareas.agregar(new Tarea("Fugiat veniam minus"));
-listaTareas.agregar(new Tarea("Et porro tempora"));
-listaTareas.agregar(new Tarea("Laboriosam mollitia et enim quasi adipisci quia provident illum"));
-listaTareas.agregar(new Tarea("Qui ullam ratione quilistaTareasdam voluptatem quia omnis"));
-listaTareas.agregar(new Tarea("Illo expedita consequatur quia in"));
-listaTareas.agregar(new Tarea("Quo adipisci enim quam ut ab"));
-listaTareas.agregar(new Tarea("Molestiae perspiciatis ipsa"));
-listaTareas.agregar(new Tarea("Illo est ratione doloremque quia maiores aut"));
+var ul = document.getElementById("listaTareas");
+listaTareas.agregarTodo();
