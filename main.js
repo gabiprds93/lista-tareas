@@ -8,6 +8,37 @@ function Tarea(title)
         var textnode = document.createTextNode(this.title);
         nodoLi.appendChild(textnode);
         ul.appendChild(nodoLi);
+        this.seleccionar(nodoLi, textnode);
+    }
+    
+    this.seleccionar = function(nodoLi, textnode)
+    {
+        var nodoInput = document.createElement("input");
+        nodoInput.type = "text";
+        nodoInput.value = textnode.nodeValue;
+        //var textnode1 = document.createTextNode("fdsfd");
+        //var nodoLi2 = document.createElement("li");
+        nodoLi.onclick = function()
+        {
+            //if(nodoLi.childElementCount == 0)
+            //var nodoLi2 = document.createElement("li");
+            //{
+            nodoLi.appendChild(nodoInput);
+            //nodoLi.appendChild(textnode);
+            //ul.appendChild(nodoLi);
+            nodoLi.replaceChild(nodoInput, textnode);
+            nodoLi.firstChild.focus();
+        //}
+            //nodoLi2.firstChild.style.backgroundColor = "#ffd1a3";
+        };
+        nodoLi.onchange = function()
+        {
+            textnode = document.createTextNode(nodoLi.firstChild.value);
+            nodoLi.replaceChild(textnode, nodoLi.firstChild);
+            //ul.appendChild(nodoLi);
+            //ul.replaceChild(nodoLi, nodoLi2);
+            //nodoLi2.firstChild.style.backgroundColor = "#ffd1a3";
+        };
     }
 }
 
@@ -98,7 +129,6 @@ function ListaTareas()
         {
             this.agregar(i.title);
         }
-        
     }
 }
 
